@@ -1,0 +1,51 @@
+alias start_vault='VAULT_UI=true VAULT_REDIRECT_ADDR=http://127.0.0.1:8210 vault server -log-level=trace -dev -dev-root-token-id=root -dev-listen-address=127.0.0.1:8210 -dev-transactional'
+
+export VAULT_ADDR=http://127.0.0.1:8210
+
+vault_license () {
+       curl --location --request PUT "http://127.0.0.1:8210/v1/sys/license" \
+       --header 'Content-Type: application/json' \
+       --header 'X-Vault-Token: root' \
+       --data-raw "{
+          \"text\": \"`cat ${1}`\"
+        }"
+}
+
+enable_approle () {
+   vault auth enable -path=approle -description="Approle auth method for applications" approle
+}
+
+create_policy () {
+    vault policy write app-policy app_policy.hcl
+}
+
+create_role () {
+    vault write auth/approle/role/app1 policies=app-policy
+}
+
+generate_role_id () {
+    ROLE_ID=`vault read --format=json auth/approle/role/app1/role-id | jq -r '.data.role_id'`
+}
+
+generate_secret_id () {
+    SECRET_ID=`vault write -f -format=json auth/approle/role/app1/secret-id \
+    | jq -r '.data.secret_id'`
+}
+
+app_login () {
+       curl --location --request POST "http://127.0.0.1:8210/v1/auth/approle/login" \
+       --header 'Content-Type: application/json' \
+       --data-raw "{
+          \"role_id\": \"${ROLE_ID}\",
+          \"secret_id\": \"${SECRET_ID}\"
+        }"
+}
+
+demo_app_role () {
+    enable_approle
+    create_policy
+    create_role
+    generate_role_id
+    generate_secret_id
+    app_login
+}

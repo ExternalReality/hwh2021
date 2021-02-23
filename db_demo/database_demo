@@ -1,0 +1,25 @@
+alias start_vault='VAULT_UI=true VAULT_REDIRECT_ADDR=http://127.0.0.1:8210 vault server -log-level=trace -dev -dev-root-token-id=root -dev-listen-address=127.0.0.1:8210 -dev-transactional'
+
+export VAULT_ADDR='http://127.0.0.1:8210'
+
+enable_db_backed () {
+    vault secrets enable database
+}
+
+configure_db () {
+    vault write database/config/vaultuser \
+    plugin_name=postgresql-database-plugin \
+    allowed_roles="vaultuser" \
+    connection_url="postgresql://{{username}}:{{password}}@localhost:5432/" \
+    username="vaultuser" \
+    password="vaultuser"
+}
+
+map_credential_creation () {
+    vault write database/roles/vaultuser \
+    db_name=vaultuser \
+    creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; \
+        GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
+    default_ttl="1h" \
+    max_ttl="24h"
+}
