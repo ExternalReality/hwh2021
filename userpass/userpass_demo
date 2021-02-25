@@ -1,3 +1,4 @@
+user_pass() {
 vault auth enable userpass
 
 vault policy write user user_policy.hcl
@@ -11,3 +12,4 @@ USER_TOKEN=<generated user token> #save your token for later
 vault login -method=userpass username=ericj password=pass
 
 vault kv get secret/data/greeting
+}

@@ -1,0 +1,8 @@
+alias start_vault='VAULT_UI=true VAULT_REDIRECT_ADDR=http://127.0.0.1:8210 vault server -log-level=trace -dev -dev-root-token-id=root -dev-listen-address=127.0.0.1:8210 -dev-transactional'
+
+github_demo () {
+    vault auth enable github
+    vault write auth/github/config organization=securityteaminhouse
+    vault policy write user user_policy.hcl
+    vault write auth/github/map/users/externalreality value=user
+}
