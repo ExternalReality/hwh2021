@@ -61,5 +61,5 @@ https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-a
 Now that you have an access token. Log in using the GitHub Auth Method and personal access token.
 
 ```
-vault login --method=github token=<Token You Just Created>
+vault login -method=github token=<Token You Just Created>
 ```
