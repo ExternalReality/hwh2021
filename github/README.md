@@ -54,4 +54,12 @@ vault write auth/github/map/users/<My GitHub Username> value=user
 
 Now we have established a github identity. How do we login to vault with this identity?
 
-First we need a personal access token for the user we provided above.
+First we need a personal access token for the user we provided above. Follow the guild below to make a personal access token:
+
+https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
+
+Now that you have an access token. Log in using the GitHub Auth Method and personal access token.
+
+```
+vault login --method=github token=<Token You Just Created>
+```
