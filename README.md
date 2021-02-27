@@ -9,7 +9,7 @@ To get a feel for a simple Vault `secrets engine` let's start vault and test out
 First start vault in development mode and unsealed and with a simple root token `root`.
 
 ```
-VAULT_UI=true VAULT_REDIRECT_ADDR=http://127.0.0.1:8210 vault server -log-level=trace -dev -dev-root-token-id=root -dev-listen-address=127.0.0.1:8210 -dev-transactional'
+VAULT_UI=true VAULT_REDIRECT_ADDR=http://127.0.0.1:8210 vault server -log-level=trace -dev -dev-root-token-id=root -dev-listen-address=127.0.0.1:8210 -dev-transactional
 ```
 
 Open a new terminal tab from which we will intereact with vault.
