@@ -80,3 +80,5 @@ And now let's read the original version
 ```
 vault kv get --version=1 secret/data/greeting
 ```
+
+What's next? Go to the individual folders of this repository to follow the other tutorials.
