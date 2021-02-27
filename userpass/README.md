@@ -9,7 +9,7 @@ As we had spoken about in the presentation, Vault, among other things, is design
 If you haven't already, start a vault server:
 
 ```
-VAULT_UI=true VAULT_REDIRECT_ADDR=http://127.0.0.1:8210 vault server -log-level=trace -dev -dev-root-token-id=root -dev-listen-address=127.0.0.1:8210 -dev-transactional'
+VAULT_UI=true VAULT_REDIRECT_ADDR=http://127.0.0.1:8210 vault server -log-level=trace -dev -dev-root-token-id=root -dev-listen-address=127.0.0.1:8210 -dev-transactional
 ```
 
 Open a new terminal tab from which we will intereact with vault.
