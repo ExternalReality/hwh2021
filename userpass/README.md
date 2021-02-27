@@ -34,7 +34,7 @@ First we want to enable the userpass authentication backend.
 vault auth enable userpass
 ```
 
-Now before we make an identity, we are going to want to establish a user policy. A policy describes what a entity is authorized to do once authenticated with vault. In the repository, we have policy file named `user_policy.hcl` let's write that policy to vault with the following command. *Note:* please ensure the path to user_policy.hcl is correct this tutorial assumes `user_policy.hcl` is in the present working directory.
+Now before we make an identity, we are going to want to establish a user policy. A policy describes what a entity is authorized to do once authenticated with vault. In the repository, we have policy file named `user_policy.hcl` let's write that policy to vault with the following command. **Note: please ensure that the path to `user_policy.hcl` is correct; this tutorial assumes `user_policy.hcl` is in the present working directory.**
 
 vault policy write user user_policy.hcl
 
